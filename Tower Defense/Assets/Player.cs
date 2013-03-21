@@ -9,6 +9,7 @@ public class Player : MonoBehaviour {
 	public float yPosition = 0;
 	
 	public GameObject ghostTower;
+	public GameObject towerToPlace;
 	private bool towerPlaced = false;
 	
 	// Use this for initialization
@@ -26,8 +27,7 @@ public class Player : MonoBehaviour {
 		ghostTower.transform.position = new Vector3(xPosition,yPosition,0);
 		if(!towerPlaced && Input.GetAxis("Place Tower") >= .5){
 			towerPlaced = true;
-			GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-			cube.transform.position = new Vector3(xPosition,yPosition,0);
+			GameObject newTower = (GameObject) Instantiate(towerToPlace,new Vector3(xPosition,yPosition,0),transform.rotation);
 		}
 		if(towerPlaced && Input.GetAxis("Place Tower") <= .5){
 			towerPlaced = false;	
