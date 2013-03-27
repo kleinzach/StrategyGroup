@@ -1,6 +1,20 @@
 ﻿<Properties>
+<<<<<<< HEAD
   <MonoDevelop.Ide.Workspace />
   <MonoDevelop.Ide.Workbench />
+=======
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\GameMaster.cs">
+    <Files>
+      <File FileName="Assets\GameMaster.cs" Line="23" Column="53" />
+      <File FileName="Assets\Player.cs" Line="28" Column="26" />
+      <File FileName="Assets\projectile_generic.cs" Line="46" Column="1" />
+      <File FileName="Assets\enemy.cs" Line="1" Column="1" />
+      <File FileName="Assets\spawner.cs" Line="1" Column="1" />
+      <File FileName="Assets\tower_state_FIRE.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+>>>>>>> 427d6943bd2d3000b29c3410f35128234b5bf5e4
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
