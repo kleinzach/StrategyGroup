@@ -3,7 +3,7 @@ using System.Collections;
 
 public class enemy : MonoBehaviour {
 	
-	public int hitsTilDead;
+	
 	public int MaxHealth;
 	public Vector3 direction;
 	public float speed;
@@ -40,12 +40,16 @@ public class enemy : MonoBehaviour {
 		
 		if(currentDirection.y > 0) {
 			cameFrom = Directions.down;
+			rigidbody.constraints = RigidbodyConstraints.FreezePositionX;
 		} else if(currentDirection.y < 0) {
 			cameFrom = Directions.up;
+			rigidbody.constraints = RigidbodyConstraints.FreezePositionX;
 		} else if(currentDirection.x > 0) {
 			cameFrom = Directions.left;
+			rigidbody.constraints = RigidbodyConstraints.FreezePositionY;
 		} else if(currentDirection.x < 0) {
 			cameFrom = Directions.right;
+			rigidbody.constraints = RigidbodyConstraints.FreezePositionY;
 		}
 	}
 	
@@ -144,9 +148,13 @@ public class enemy : MonoBehaviour {
         }
         return closest;	
 	}
-	void GotHit (int damage) {
+	
+	void GotHit(int damage) {
 		health = health - damage;
-		hitsTilDead--;
+		if(health <= 0) {
+			SendMessage("UpdateScore");
+			Destroy();
+		}
 	}
 
 }
