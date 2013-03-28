@@ -46,11 +46,11 @@
   <ItemGroup>
      <Compile Include="Assets\Player.cs" />
      <Compile Include="Assets\enemy.cs" />
-     <Compile Include="Assets\platform_horizontal.cs" />
-     <Compile Include="Assets\platform_vertical.cs" />
      <Compile Include="Assets\projectile_generic.cs" />
      <Compile Include="Assets\spawner.cs" />
+     <Compile Include="Assets\tower_range.cs" />
      <Compile Include="Assets\tower_state_FIRE.cs" />
+     <Compile Include="Assets\tower_state_IDLE.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
