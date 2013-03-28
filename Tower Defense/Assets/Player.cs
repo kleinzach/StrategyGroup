@@ -3,10 +3,12 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 	
+	public GameMaster gm;
+	
 	public float moveSpeed = 1;
 	
-	public float xPosition = 0;
-	public float yPosition = 0;
+	public int xPosition = 0;
+	public int yPosition = 0;
 	
 	public GameObject ghostTower;
 	public GameObject towerToPlace;
@@ -22,12 +24,11 @@ public class Player : MonoBehaviour {
 		float xMove = moveSpeed * Input.GetAxis("Horizontal");
 		float yMove = moveSpeed * Input.GetAxis("Vertical");
 		this.transform.Translate (new Vector3(xMove,yMove,0));
-		this.xPosition = Mathf.Round(transform.position.x);
-		this.yPosition = Mathf.Round(transform.position.y);
+		this.xPosition = (int) Mathf.Round(transform.position.x);
+		this.yPosition = (int) Mathf.Round(transform.position.y);
 		ghostTower.transform.position = new Vector3(xPosition,yPosition,0);
 		if(!towerPlaced && Input.GetAxis("Place Tower") >= .5){
-			towerPlaced = true;
-			GameObject newTower = (GameObject) Instantiate(towerToPlace,new Vector3(xPosition,yPosition,0),transform.rotation);
+			towerPlaced = gm.placeTower(xPosition,yPosition,towerToPlace);
 		}
 		if(towerPlaced && Input.GetAxis("Place Tower") <= .5){
 			towerPlaced = false;	
