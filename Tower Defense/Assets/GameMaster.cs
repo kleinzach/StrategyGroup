@@ -23,17 +23,17 @@ public class GameMaster : MonoBehaviour {
 	
 	}
 	
-	public bool placeTower(int x, int y, GameObject towerToPlace){
+	public bool placeTower(int x, int z, GameObject towerToPlace){
 		bool canPlace = true;
 		canPlace &= (money > towerCost);
 		canPlace &= (-gridWidth/2 <= x) && (x <= gridWidth/2);
-		canPlace &= (-gridHeight/2 <= y) && (x  <= gridHeight/2);
+		canPlace &= (-gridHeight/2 <= z) && (z  <= gridHeight/2);
 		if(canPlace){
-			canPlace &= (grid[x + gridWidth/2,y + gridHeight/2] == null);
+			canPlace &= (grid[x + gridWidth/2,z + gridHeight/2] == null);
 		}
 		if(canPlace){
-			GameObject newTower = (GameObject) Instantiate(towerToPlace,new Vector3(x,y,0),transform.rotation);	
-			grid[x + gridWidth/2,y + gridHeight/2] = towerToPlace;
+			GameObject newTower = (GameObject) Instantiate(towerToPlace,new Vector3(x,0,z),transform.rotation);	
+			grid[x + gridWidth/2,z + gridHeight/2] = towerToPlace;
 		}
 		return canPlace;
 	}
@@ -42,9 +42,9 @@ public class GameMaster : MonoBehaviour {
 		return false;
 	}
 	
-	public GameObject towerAt(int x, int y){
+	public GameObject towerAt(int x, int z){
 		try{
-			return grid[x + gridWidth/2,y + gridHeight/2];	
+			return grid[x + gridWidth/2,z + gridHeight/2];	
 		}
 		catch(Exception e){
 			return null;	

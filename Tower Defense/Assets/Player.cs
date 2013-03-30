@@ -23,12 +23,12 @@ public class Player : MonoBehaviour {
 	void FixedUpdate () {
 		float xMove = moveSpeed * Input.GetAxis("Horizontal");
 		float zMove = moveSpeed * Input.GetAxis("Vertical");
-		this.transform.Translate (new Vector3(xMove,yMove,0));
+		this.transform.Translate (new Vector3(xMove,0,zMove));
 		this.xPosition = (int) Mathf.Round(transform.position.x);
 		this.zPosition = (int) Mathf.Round(transform.position.z);
-		ghostTower.transform.position = new Vector3(xPosition,0,zMove);
+		ghostTower.transform.position = new Vector3(xPosition,0,zPosition);
 		if(!towerPlaced && Input.GetAxis("Place Tower") >= .5){
-			towerPlaced = gm.placeTower(xPosition,yPosition,towerToPlace);
+			towerPlaced = gm.placeTower(xPosition,zPosition,towerToPlace);
 		}
 		if(towerPlaced && Input.GetAxis("Place Tower") <= .5){
 			towerPlaced = false;	
