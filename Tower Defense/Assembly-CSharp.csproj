@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\CameraController.cs" />
+     <Compile Include="Assets\EnemyFactory.cs" />
      <Compile Include="Assets\GameMaster.cs" />
      <Compile Include="Assets\Player.cs" />
      <Compile Include="Assets\Waypoint_script.cs" />

@@ -14,9 +14,8 @@ public class GameMaster : MonoBehaviour {
 	private GameObject[,] grid;
 	
 	//Parameters controlling the enemy waves.
-	public int numberOfWaves = 10;
 	private int currentWave = 1;
-	public int difficulty = 1;
+	public int stage = 1;
 	
 	public enemy[] possibleEnemies;
 	
@@ -30,6 +29,7 @@ public class GameMaster : MonoBehaviour {
 	
 	}
 	
+	//Places a Tower at the desired location.
 	public bool placeTower(int x, int z, GameObject towerToPlace){
 		bool canPlace = true;
 		canPlace &= (money > towerCost);

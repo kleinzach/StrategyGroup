@@ -22,6 +22,17 @@ public class Player : MonoBehaviour {
 	
 	// Fixed Update is called once per physics frame
 	void FixedUpdate () {
+		handleMovement();
+		
+		//Move the ghost tower to the tile the cursor is in.
+		ghostTower.transform.position = new Vector3(xPosition,0,zPosition);
+		
+		handlePlace();
+		
+		handleUpgrade();
+	}
+	
+	private void handleMovement(){
 		//Determine movement for the cursor
 		float xMove = moveSpeed * Input.GetAxis("Horizontal");
 		float zMove = moveSpeed * Input.GetAxis("Vertical");
@@ -59,17 +70,21 @@ public class Player : MonoBehaviour {
 			this.transform.position = new Vector3(oldPosition.x, 0, oldPosition.z);
 			this.xPosition = (int) Mathf.Round(transform.position.x);
 			this.zPosition = (int) Mathf.Round(transform.position.z);
-		}
-		
-		//Move the ghost tower to the tile the cursor is in.
-		ghostTower.transform.position = new Vector3(xPosition,0,zPosition);
-		
-		//Require a new click for each new tower.
+		}	
+	}
+	
+	//Require a new click for each new tower.
+	private void handlePlace(){
 		if(!towerPlaced && Input.GetAxis("Place Tower") >= .5){
 			towerPlaced = gm.placeTower(xPosition,zPosition,towerToPlace);
 		}
 		if(towerPlaced && Input.GetAxis("Place Tower") <= .5){
 			towerPlaced = false;	
 		}
+	}
+	
+	//Upgrade a tower if a button is pressed
+	private void handleUpgrade(){
+		
 	}
 }
