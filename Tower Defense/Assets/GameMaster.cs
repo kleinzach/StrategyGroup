@@ -13,6 +13,13 @@ public class GameMaster : MonoBehaviour {
 	
 	private GameObject[,] grid;
 	
+	//Parameters controlling the enemy waves.
+	public int numberOfWaves = 10;
+	private int currentWave = 1;
+	public int difficulty = 1;
+	
+	public enemy[] possibleEnemies;
+	
 	// Use this for initialization
 	void Start () {
 		grid = new GameObject[gridWidth,gridHeight];
