@@ -49,9 +49,17 @@ public class Player : MonoBehaviour {
 			nudgable = true;	
 		}
 		
+		Vector3 oldPosition = new Vector3(this.xPosition, 0, this.zPosition);
 		this.transform.Translate (new Vector3(xMove,0,zMove) + nudgeVector);
+		
 		this.xPosition = (int) Mathf.Round(transform.position.x);
 		this.zPosition = (int) Mathf.Round(transform.position.z);
+		
+		if(!gm.inBounds(xPosition,zPosition)){
+			this.transform.position = new Vector3(oldPosition.x, 0, oldPosition.z);
+			this.xPosition = (int) Mathf.Round(transform.position.x);
+			this.zPosition = (int) Mathf.Round(transform.position.z);
+		}
 		
 		//Move the ghost tower to the tile the cursor is in.
 		ghostTower.transform.position = new Vector3(xPosition,0,zPosition);

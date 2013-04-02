@@ -50,4 +50,10 @@ public class GameMaster : MonoBehaviour {
 			return null;	
 		}
 	}
+	
+	public bool inBounds(int x, int z){
+		int realx = x + gridWidth/2;
+		int realz = z + gridHeight/2;
+		return((0 < realx && realx < gridWidth)&&(0 < realz && realz < gridHeight));	
+	}
 }
