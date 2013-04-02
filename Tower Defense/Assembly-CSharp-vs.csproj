@@ -47,6 +47,7 @@
      <Compile Include="Assets\CameraController.cs" />
      <Compile Include="Assets\GameMaster.cs" />
      <Compile Include="Assets\Player.cs" />
+     <Compile Include="Assets\Waypoint_script.cs" />
      <Compile Include="Assets\enemy.cs" />
      <Compile Include="Assets\projectile_generic.cs" />
      <Compile Include="Assets\spawner.cs" />

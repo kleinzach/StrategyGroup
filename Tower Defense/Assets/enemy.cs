@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class enemy : MonoBehaviour {
 	
@@ -24,7 +24,7 @@ public class enemy : MonoBehaviour {
 		currentDirection = direction;
 		FirstWaypoint = GameObject.FindGameObjectWithTag("FirstWaypoint");
 		waypointPosition = FirstWaypoint.transform.position;
-		Waypoints = GameObject.FindGameObjectsWithTag("Waypoint");
+		Waypoints = new List<GameObject>(GameObject.FindGameObjectsWithTag("Waypoint"));
 		currentPosition = rigidbody.position;
 		gameMaster = GameObject.FindGameObjectWithTag("GameMaster");
 		
