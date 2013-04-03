@@ -2,8 +2,9 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+//hwe2
 //Manages all of the different factories i'm going to create.
-public class FactoryManager : MonoBehaviour {
+public class FactoryManager {
 	
 	Dictionary<string,GenericFactory> factories = new Dictionary<string,GenericFactory>();
 	public float recycleDelay = 2f;
@@ -23,7 +24,10 @@ public class FactoryManager : MonoBehaviour {
 	/// Product created by the factory.
 	/// </param>
 	public void newFactory(string name, GameObject product){
-		factories.Add (name,new GenericFactory(product,recycleDelay));
+		GenericFactory f = (GenericFactory)ScriptableObject.CreateInstance("GenericFactory");
+		f.product = product;
+		f.delay = recycleDelay;
+		factories.Add (name,f);
 	}
 	
 	/// <summary>
@@ -33,6 +37,8 @@ public class FactoryManager : MonoBehaviour {
 	/// The object's name.
 	/// </param>
 	public GameObject create(string objectName){
-		return factories[objectName].create();	
+		GameObject g = factories[objectName].create();
+		Debug.Log (g.name + "************************");
+		return g;	
 	}
 }

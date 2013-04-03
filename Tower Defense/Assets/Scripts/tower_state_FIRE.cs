@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class tower_state_FIRE : MonoBehaviour {
 	
@@ -24,7 +25,12 @@ public class tower_state_FIRE : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		targetEnemy = targets[0];
+		try{
+			targetEnemy = targets[0];
+		}
+		catch(ArgumentOutOfRangeException e){
+			
+		}
 		if (targetEnemy) {
 			CalculateAim(targetEnemy.position);
 			towerBall.rotation = Quaternion.Lerp (towerBall.rotation, desiredRotation, turnRate * Time.fixedDeltaTime);

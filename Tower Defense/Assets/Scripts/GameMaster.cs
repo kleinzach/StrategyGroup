@@ -1,7 +1,10 @@
 using UnityEngine;
 using System;
 
+// hwe2
 public class GameMaster : MonoBehaviour {
+	
+	public FactoryManager factory = new FactoryManager();
 	
 	public int gridWidth = 20;
 	public int gridHeight = 10;
@@ -12,6 +15,8 @@ public class GameMaster : MonoBehaviour {
 	public int towerUpgrade2Cost = 10;
 	
 	private GameObject[,] grid;
+	
+	public GameObject enemy;
 	
 	//Parameters controlling the enemy waves.
 	private int currentWave = 1;
@@ -30,7 +35,7 @@ public class GameMaster : MonoBehaviour {
 	}
 	
 	//Places a Tower at the desired location.
-	public bool placeTower(int x, int z, GameObject towerToPlace){
+	public bool placeTower(int x, int z){
 		bool canPlace = true;
 		canPlace &= (money > towerCost);
 		canPlace &= (-gridWidth/2 <= x) && (x <= gridWidth/2);
@@ -39,8 +44,9 @@ public class GameMaster : MonoBehaviour {
 			canPlace &= (grid[x + gridWidth/2,z + gridHeight/2] == null);
 		}
 		if(canPlace){
-			GameObject newTower = (GameObject) Instantiate(towerToPlace,new Vector3(x,0,z),transform.rotation);	
-			grid[x + gridWidth/2,z + gridHeight/2] = towerToPlace;
+			GameObject newTower = factory.create("enemy");
+			newTower.transform.position = new Vector3(x,0,z);
+			grid[x + gridWidth/2,z + gridHeight/2] = newTower;
 		}
 		return canPlace;
 	}
@@ -49,6 +55,18 @@ public class GameMaster : MonoBehaviour {
 		return false;
 	}
 	
+	/// <summary>
+	/// finds the tower at x and z.
+	/// </summary>
+	/// <returns>
+	/// The Tower.
+	/// </returns>
+	/// <param name='x'>
+	/// X position.
+	/// </param>
+	/// <param name='z'>
+	/// Z position.
+	/// </param>
 	public GameObject towerAt(int x, int z){
 		try{
 			return grid[x + gridWidth/2,z + gridHeight/2];	
@@ -58,6 +76,18 @@ public class GameMaster : MonoBehaviour {
 		}
 	}
 	
+	/// <summary>
+	/// shows it the point is in bounds.
+	/// </summary>
+	/// <returns>
+	/// Whetehr it is in.
+	/// </returns>
+	/// <param name='x'>
+	/// The x coordinate.
+	/// </param>
+	/// <param name='z'>
+	/// The z coordinate.
+	/// </param>
 	public bool inBounds(int x, int z){
 		int realx = x + gridWidth/2;
 		int realz = z + gridHeight/2;

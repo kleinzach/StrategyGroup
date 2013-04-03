@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+//hwe2
 public class Player : MonoBehaviour {
 	
 	public GameMaster gm;
@@ -12,7 +13,6 @@ public class Player : MonoBehaviour {
 	public int zPosition = 0;
 	
 	public GameObject ghostTower;
-	public GameObject towerToPlace;
 	private bool towerPlaced = false;
 	
 	// Use this for initialization
@@ -76,7 +76,7 @@ public class Player : MonoBehaviour {
 	//Require a new click for each new tower.
 	private void handlePlace(){
 		if(!towerPlaced && Input.GetAxis("Place Tower") >= .5){
-			towerPlaced = gm.placeTower(xPosition,zPosition,towerToPlace);
+			towerPlaced = gm.placeTower(xPosition,zPosition);
 		}
 		if(towerPlaced && Input.GetAxis("Place Tower") <= .5){
 			towerPlaced = false;	

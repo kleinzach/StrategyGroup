@@ -44,20 +44,21 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\CameraController.cs" />
-     <Compile Include="Assets\EnemyFactory.cs" />
-     <Compile Include="Assets\FactoryManager.cs" />
-     <Compile Include="Assets\GameMaster.cs" />
-     <Compile Include="Assets\GenericFactory.cs" />
-     <Compile Include="Assets\Player.cs" />
-     <Compile Include="Assets\Waypoint_script.cs" />
-     <Compile Include="Assets\enemy.cs" />
-     <Compile Include="Assets\platform_horizontal.cs" />
-     <Compile Include="Assets\projectile_generic.cs" />
-     <Compile Include="Assets\spawner.cs" />
-     <Compile Include="Assets\tower_range.cs" />
-     <Compile Include="Assets\tower_state_FIRE.cs" />
-     <Compile Include="Assets\tower_state_IDLE.cs" />
+     <Compile Include="Assets\Scripts\CameraController.cs" />
+     <Compile Include="Assets\Scripts\EnemyFactory.cs" />
+     <Compile Include="Assets\Scripts\FactoryLoader.cs" />
+     <Compile Include="Assets\Scripts\FactoryManager.cs" />
+     <Compile Include="Assets\Scripts\GameMaster.cs" />
+     <Compile Include="Assets\Scripts\GenericFactory.cs" />
+     <Compile Include="Assets\Scripts\Player.cs" />
+     <Compile Include="Assets\Scripts\Waypoint_script.cs" />
+     <Compile Include="Assets\Scripts\enemy.cs" />
+     <Compile Include="Assets\Scripts\platform_horizontal.cs" />
+     <Compile Include="Assets\Scripts\projectile_generic.cs" />
+     <Compile Include="Assets\Scripts\spawner.cs" />
+     <Compile Include="Assets\Scripts\tower_range.cs" />
+     <Compile Include="Assets\Scripts\tower_state_FIRE.cs" />
+     <Compile Include="Assets\Scripts\tower_state_IDLE.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
