@@ -45,10 +45,16 @@ public class tower_state_FIRE : MonoBehaviour {
 		}
 	}
 	
+<<<<<<< HEAD:Tower Defense/Assets/tower_state_FIRE.cs
+	// Aims the tower at the targeted enemy
+	void CalculateAim (Vector3 targetPOS) {
+		Vector3 aimPoint = targetPOS - transform.position;
+=======
 	// Calculates appropriate aim position for the input enemy
 	void CalculateAim (Vector3 targetPOS) {		
 		Vector3 aimPoint = targetPOS - transform.position;
 		aimPoint += aimPoint.magnitude * targetEnemy.rigidbody.velocity / projVel;
+>>>>>>> 9c848a5152e48dea4ddf42465280dd54e5825a9e:Tower Defense/Assets/Scripts/tower_state_FIRE.cs
 		desiredRotation = Quaternion.LookRotation(aimPoint);
 	}
 	
@@ -74,9 +80,14 @@ public class tower_state_FIRE : MonoBehaviour {
 	// When an enemy enters range it is added to the target list
 	void OnTriggerEnter (Collider enemy) {
 		if (enemy.CompareTag("Enemy")) {
+<<<<<<< HEAD:Tower Defense/Assets/tower_state_FIRE.cs
+			//timeToNextFire = Time.time + (reloadTime * .5);
+			AddTarget(enemy.gameObject.transform);
+=======
 			timeToNextFire = Time.time + (reloadTime * .5);
 			if (!targets.Contains(enemy.gameObject.transform))
 				targets.Add(enemy.gameObject.transform);		
+>>>>>>> 9c848a5152e48dea4ddf42465280dd54e5825a9e:Tower Defense/Assets/Scripts/tower_state_FIRE.cs
 			targetEnemy = targets[0];
 		}
 	}
