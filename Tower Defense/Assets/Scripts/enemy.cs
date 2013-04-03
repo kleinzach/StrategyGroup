@@ -1,8 +1,9 @@
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class enemy : MonoBehaviour {
 	
+<<<<<<< HEAD:Tower Defense/Assets/enemy.cs
 	public int horizVelocity;							// The horizontal velocity of the enemy
 	public float x_high;								// The upper limit of the enemy's movement
 	public float x_low;									// The lower limit of the enemy's movement
@@ -48,21 +49,48 @@ public class enemy : MonoBehaviour {
 	}
 }
 /*=======
+=======
+>>>>>>> 9c848a5152e48dea4ddf42465280dd54e5825a9e:Tower Defense/Assets/Scripts/enemy.cs
 	
 	public int MaxHealth;
 	public Vector3 direction;
 	public float speed;
-	public GameObject[] Walls;
+	
 	
 	private Vector3 currentDirection;
+	private Vector3 currentPosition;
 	private int health;
 	private enum Directions { up, down, right, left };
 	private Directions cameFrom;
+	private List<GameObject> Waypoints;
+	private GameObject FirstWaypoint;
+	private Vector3 waypointPosition;
+	private GameObject gameMaster;
 	
 	void Start() {
 		health = MaxHealth;
 		currentDirection = direction;
-		Walls = GameObject.FindGameObjectsWithTag("Wall");
+		FirstWaypoint = GameObject.FindGameObjectWithTag("FirstWaypoint");
+		waypointPosition = FirstWaypoint.transform.position;
+		Waypoints = new List<GameObject>(GameObject.FindGameObjectsWithTag("Waypoint"));
+		currentPosition = rigidbody.position;
+		gameMaster = GameObject.FindGameObjectWithTag("GameMaster");
+		
+		//Check which direction the enemy should move 
+		if(waypointPosition.z > currentPosition.z) {
+			currentDirection = new Vector3(0, 0, 1);
+		} else if(waypointPosition.z < currentPosition.z) {
+			currentDirection = new Vector3(0, 0, -1);
+		} else if(waypointPosition.x > currentPosition.x) {
+			currentDirection = new Vector3(1, 0, 0);
+		} else if(waypointPosition.x < currentPosition.x) {
+			currentDirection = new Vector3(-1, 0, 0);
+		} else if(waypointPosition.y > currentPosition.y) {
+			currentDirection = new Vector3(0, 1, 0);
+		} else if(waypointPosition.y < currentPosition.y) {
+			currentDirection = new Vector3(0, -1, 0);
+		}
+		
 	}
 	
 	// Update is called once per frame
@@ -72,33 +100,103 @@ public class enemy : MonoBehaviour {
 		
 			position.y += -velocity.y;
 			this.transform.position = position;
+<<<<<<< HEAD:Tower Defense/Assets/enemy.cs
 		}*
+=======
+		}*/		
+>>>>>>> 9c848a5152e48dea4ddf42465280dd54e5825a9e:Tower Defense/Assets/Scripts/enemy.cs
 	}
 	
 	void FixedUpdate() {
-		
-		var velocity = currentDirection * speed;
 		var currentPosition = rigidbody.position;
-    	Vector3 newPosition = currentPosition + (velocity * Time.fixedDeltaTime);
-    	rigidbody.MovePosition(newPosition);
 		
 		
-		if(currentDirection.y > 0) {
+		
+		if(currentDirection.z > 0) {
 			cameFrom = Directions.down;
 			rigidbody.constraints = RigidbodyConstraints.FreezePositionX;
-		} else if(currentDirection.y < 0) {
+			if(currentPosition.z >= waypointPosition.z) {
+				FindNextWaypointPosition(cameFrom);
+			}
+		} else if(currentDirection.z < 0) {
 			cameFrom = Directions.up;
 			rigidbody.constraints = RigidbodyConstraints.FreezePositionX;
+			if(currentPosition.z <= waypointPosition.z) {
+				FindNextWaypointPosition(cameFrom);
+			}
 		} else if(currentDirection.x > 0) {
 			cameFrom = Directions.left;
 			rigidbody.constraints = RigidbodyConstraints.FreezePositionY;
+			if(currentPosition.x >= waypointPosition.x) {
+				FindNextWaypointPosition(cameFrom);
+			}
 		} else if(currentDirection.x < 0) {
 			cameFrom = Directions.right;
 			rigidbody.constraints = RigidbodyConstraints.FreezePositionY;
+			if(currentPosition.x <= waypointPosition.x) {
+				FindNextWaypointPosition(cameFrom);
+			}
 		}
+		
+		//Move the enemy
+		var velocity = currentDirection * speed;
+    	Vector3 newPosition = currentPosition + (velocity * Time.fixedDeltaTime);
+    	rigidbody.MovePosition(newPosition);
+		
 	}
 	
-	void OnCollisionEnter(Collision collision) {
+	//Finds the next waypoint by finding waypoints that are in line with the enemy
+	//in the direction they should be going and then finds the closest one.
+	void FindNextWaypointPosition(Directions cameFrom) {
+		var position = waypointPosition;
+		float distance = Mathf.Infinity;
+		float curDistance = Mathf.Infinity; 
+		GameObject nextWaypoint = null;
+		
+		
+		if(cameFrom == Directions.up || cameFrom == Directions.down) {
+			foreach (GameObject waypoint in Waypoints) {
+				if(waypoint.transform.position.x == position.x) {
+					distance = Mathf.Abs(waypoint.transform.position.x - this.transform.position.x);
+					if(distance < curDistance) {
+						curDistance = distance;
+						nextWaypoint = waypoint;
+					}
+					
+				}		
+			}	
+		} else if(cameFrom == Directions.left || cameFrom == Directions.right) {
+			foreach (GameObject waypoint in Waypoints) {
+				if(waypoint.transform.position.z == position.z) {
+					distance = Mathf.Abs(waypoint.transform.position.z - this.transform.position.z);
+					if(distance < curDistance) {
+						curDistance = distance;
+						nextWaypoint = waypoint;
+					}
+				}		
+			}
+		}
+		
+		waypointPosition = nextWaypoint.transform.position;
+		
+		//Check which direction the enemy should move 
+		if(waypointPosition.z > currentPosition.z) {
+			currentDirection = new Vector3(0, 0, 1);
+		} else if(waypointPosition.z < currentPosition.z) {
+			currentDirection = new Vector3(0, 0, -1);
+		} else if(waypointPosition.x > currentPosition.x) {
+			currentDirection = new Vector3(1, 0, 0);
+		} else if(waypointPosition.x < currentPosition.x) {
+			currentDirection = new Vector3(-1, 0, 0);
+		} else if(waypointPosition.y > currentPosition.y) {
+			currentDirection = new Vector3(0, 1, 0);
+		} else if(waypointPosition.y < currentPosition.y) {
+			currentDirection = new Vector3(0, -1, 0);
+		}
+		
+	}
+	
+	/*void OnCollisionEnter(Collision collision) {
 		
 		print ("before change: " + cameFrom);
 		if(cameFrom == Directions.up) {
@@ -192,14 +290,19 @@ public class enemy : MonoBehaviour {
             }
         }
         return closest;	
-	}
+	}*/
 	
+	//Decreases health of the enemy and checks to see if it's dead.
 	void GotHit(int damage) {
 		health = health - damage;
 		if(health <= 0) {
-			SendMessage("UpdateScore");
-			Destroy();
+			gameMaster.SendMessage("UpdateScore");
+			Destroy(this.gameObject);
 		}
 	}
 
+<<<<<<< HEAD:Tower Defense/Assets/enemy.cs
 }*/
+=======
+}
+>>>>>>> 9c848a5152e48dea4ddf42465280dd54e5825a9e:Tower Defense/Assets/Scripts/enemy.cs
