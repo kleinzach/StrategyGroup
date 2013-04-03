@@ -52,6 +52,7 @@
      <Compile Include="Assets\Player.cs" />
      <Compile Include="Assets\Waypoint_script.cs" />
      <Compile Include="Assets\enemy.cs" />
+     <Compile Include="Assets\platform_horizontal.cs" />
      <Compile Include="Assets\projectile_generic.cs" />
      <Compile Include="Assets\spawner.cs" />
      <Compile Include="Assets\tower_range.cs" />

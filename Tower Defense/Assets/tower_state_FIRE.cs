@@ -7,40 +7,55 @@ public class tower_state_FIRE : MonoBehaviour {
 	public GameObject projectile;
 	public float reloadTime;
 	public float turnRate;	
-	public List<Transform> targets = new List<Transform> (); 
+	public List<Transform> targets; 
 	public Transform targetEnemy;
 	public Transform towerBall;
 	public Transform barrelEnd;
 	
 	private Quaternion desiredRotation;
 	private double timeToNextFire;
+	private float projVel;
 	
 	// Called on start up
 	void Start () {
-		AddTarget(GameObject.FindGameObjectWithTag("Enemy").transform);
-		targetEnemy = targets[0];
+		targets = new List<Transform>();		
+		projVel = projectile.GetComponent<projectile_generic>().velocity;
 	}
 	
 	// Update is called once per frame
-	void Update () {				
+	void FixedUpdate () {
+		targetEnemy = targets[0];
 		if (targetEnemy) {
 			CalculateAim(targetEnemy.position);
-			towerBall.rotation = Quaternion.Lerp (towerBall.rotation, desiredRotation, turnRate * Time.deltaTime);
+			towerBall.rotation = Quaternion.Lerp (towerBall.rotation, desiredRotation, turnRate * Time.fixedDeltaTime);
 			
 			if (Time.time >= timeToNextFire)
 				FireProjectile();
 		}
-		
-		if (targets.Count == 0) {		
-			this.GetComponent<tower_state_IDLE>().enabled = true;
-			this.GetComponent<tower_state_FIRE>().enabled = false;		
+					
+		else if (targets.Count == 0) {		
+			targetEnemy = null;
+			towerBall.rotation.SetLookRotation(new Vector3(0, 0, 0));
 		}
 	}
 	
-	// Aims the tower at the targeted enemy
-	void CalculateAim (Vector3 targetPOS) {
-		Vector3 aimPoint = new Vector3(targetPOS.x - transform.position.x, targetPOS.y - transform.position.y, targetPOS.z - transform.position.z);
+	// Calculates appropriate aim position for the input enemy
+	void CalculateAim (Vector3 targetPOS) {		
+		Vector3 aimPoint = targetPOS - transform.position;
+		aimPoint += aimPoint.magnitude * targetEnemy.rigidbody.velocity / projVel;
 		desiredRotation = Quaternion.LookRotation(aimPoint);
+	}
+	
+	Vector3 CalculateIntercept (Vector3 turretPOS, float projVelocity, Vector3 targetPOS, Vector3 targetVel) {
+		float t = CalculateInterceptTime (projVelocity, targetPOS - turretPOS, targetVel);
+		return targetPOS + t * targetVel;
+	}
+	
+	float CalculateInterceptTime (float projVel, Vector3 targetRelativePOS, Vector3 targetVel) {
+		float velocitySq = targetVel.sqrMagnitude;
+		//if (velocitySq < 0.001)
+			return 0.0f;
+		
 	}
 	
 	// Fires a projectile
@@ -50,21 +65,12 @@ public class tower_state_FIRE : MonoBehaviour {
 		Instantiate(projectile, barrelEnd.position, barrelEnd.rotation);		
 	}
 	
-	// Adds an enemy to the end of the list of targets
-	void AddTarget (Transform enemy) {
-		targets.Add(enemy);
-	}
-	
-	// Removes an enemy from the list of targets
-	void RemoveTarget (Transform enemy) {
-		targets.Remove(enemy);
-	}
-	
 	// When an enemy enters range it is added to the target list
 	void OnTriggerEnter (Collider enemy) {
 		if (enemy.CompareTag("Enemy")) {
 			timeToNextFire = Time.time + (reloadTime * .5);
-			AddTarget(enemy.gameObject.transform);
+			if (!targets.Contains(enemy.gameObject.transform))
+				targets.Add(enemy.gameObject.transform);		
 			targetEnemy = targets[0];
 		}
 	}
@@ -72,8 +78,8 @@ public class tower_state_FIRE : MonoBehaviour {
 	// When an enemy exits range it is removed from the target list
 	void OnTriggerExit (Collider enemy) {
 		if (enemy.gameObject.transform == targetEnemy) {
-			RemoveTarget(enemy.gameObject.transform);
-			targetEnemy = targets[0];
+			targets.RemoveAt(0);
+			targetEnemy = null;
 		}
 	}
 }
