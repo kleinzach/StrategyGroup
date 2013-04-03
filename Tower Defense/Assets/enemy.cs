@@ -3,7 +3,6 @@ using System.Collections;
 
 public class enemy : MonoBehaviour {
 	
-<<<<<<< HEAD
 	public int horizVelocity;							// The horizontal velocity of the enemy
 	public float x_high;								// The upper limit of the enemy's movement
 	public float x_low;									// The lower limit of the enemy's movement
@@ -45,8 +44,10 @@ public class enemy : MonoBehaviour {
 		
 	// Enemy has been destroyed	
 		if (hitsTilDead <= 0)
-			Destroy (gameObject);	
-=======
+			Destroy (gameObject);
+	}
+}
+/*=======
 	
 	public int MaxHealth;
 	public Vector3 direction;
@@ -71,8 +72,7 @@ public class enemy : MonoBehaviour {
 		
 			position.y += -velocity.y;
 			this.transform.position = position;
-		}*/		
->>>>>>> 027ca5780b294a91c4b83b7ee5a9d6dc631ad548
+		}*
 	}
 	
 	void FixedUpdate() {
@@ -202,4 +202,4 @@ public class enemy : MonoBehaviour {
 		}
 	}
 
-}
+}*/

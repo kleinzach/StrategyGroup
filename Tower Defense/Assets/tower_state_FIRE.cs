@@ -39,7 +39,7 @@ public class tower_state_FIRE : MonoBehaviour {
 	
 	// Aims the tower at the targeted enemy
 	void CalculateAim (Vector3 targetPOS) {
-		Vector3 aimPoint = new Vector3(targetPOS.x - transform.position.x, targetPOS.y - transform.position.y, targetPOS.z - transform.position.z);
+		Vector3 aimPoint = targetPOS - transform.position;
 		desiredRotation = Quaternion.LookRotation(aimPoint);
 	}
 	
@@ -63,7 +63,7 @@ public class tower_state_FIRE : MonoBehaviour {
 	// When an enemy enters range it is added to the target list
 	void OnTriggerEnter (Collider enemy) {
 		if (enemy.CompareTag("Enemy")) {
-			timeToNextFire = Time.time + (reloadTime * .5);
+			//timeToNextFire = Time.time + (reloadTime * .5);
 			AddTarget(enemy.gameObject.transform);
 			targetEnemy = targets[0];
 		}
