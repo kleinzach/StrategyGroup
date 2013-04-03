@@ -4,7 +4,7 @@ using System;
 // hwe2
 public class GameMaster : MonoBehaviour {
 	
-	public FactoryManager factory = new FactoryManager();
+	public FactoryManager factory;
 	
 	public int gridWidth = 20;
 	public int gridHeight = 10;
@@ -26,6 +26,8 @@ public class GameMaster : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+		GameObject go = new GameObject();
+		factory = go.AddComponent<FactoryManager>();
 		grid = new GameObject[gridWidth,gridHeight];
 	}
 	
@@ -44,7 +46,7 @@ public class GameMaster : MonoBehaviour {
 			canPlace &= (grid[x + gridWidth/2,z + gridHeight/2] == null);
 		}
 		if(canPlace){
-			GameObject newTower = factory.create("enemy");
+			GameObject newTower = factory.create("Tower");
 			newTower.transform.position = new Vector3(x,0,z);
 			grid[x + gridWidth/2,z + gridHeight/2] = newTower;
 		}

@@ -3,15 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 
 //A Generic Factory, to be held in the Factory Manager
-public class GenericFactory : ScriptableObject{
+public class GenericFactory : MonoBehaviour{
 	
-	public GameObject product;
+	public GameObject product = GameObject.CreatePrimitive(PrimitiveType.Cube);
 	public float delay;
 	
-	private List<GameObject> aliveList = new List<GameObject>();
-	private List<GameObject> deadList = new List<GameObject>();
+	private List<GameObject> aliveList, deadList;
 	
 	public GenericFactory(GameObject toProduce, float recycleDelay){
+		aliveList = new List<GameObject>();
+		deadList = new List<GameObject>();
 		this.product = toProduce;
 		this.delay = recycleDelay;
 		//SendMessage("recycle",delay);
@@ -20,7 +21,14 @@ public class GenericFactory : ScriptableObject{
 	//Creates and returns the product.
 	public GameObject create(){
 		
-		GameObject newProduct = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		GameObject newProduct;
+		
+		if(aliveList == null){
+			aliveList = new List<GameObject>();
+		}
+		if(deadList == null){
+			deadList = new List<GameObject>();	
+		}
 
 		if(deadList.Count < 1){
 			newProduct = (GameObject)Instantiate(product, Vector3.zero, Quaternion.identity);
