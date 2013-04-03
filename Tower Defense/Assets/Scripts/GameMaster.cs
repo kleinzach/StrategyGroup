@@ -46,14 +46,14 @@ public class GameMaster : MonoBehaviour {
 			canPlace &= (grid[x + gridWidth/2,z + gridHeight/2] == null);
 		}
 		if(canPlace){
-			GameObject newTower = factory.create("Tower");
+			GameObject newTower = factory.create("Wall");
 			newTower.transform.position = new Vector3(x,0,z);
 			grid[x + gridWidth/2,z + gridHeight/2] = newTower;
 		}
 		return canPlace;
 	}
 	
-	public bool upgradeTower(GameObject tower, int element){
+	public bool upgradeTower(int x, int z, string element){
 		return false;
 	}
 	

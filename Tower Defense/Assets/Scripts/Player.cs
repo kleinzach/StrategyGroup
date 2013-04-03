@@ -14,6 +14,7 @@ public class Player : MonoBehaviour {
 	
 	public GameObject ghostTower;
 	private bool towerPlaced = false;
+	private bool upgraded = true;
 	
 	// Use this for initialization
 	void Start () {
@@ -85,6 +86,22 @@ public class Player : MonoBehaviour {
 	
 	//Upgrade a tower if a button is pressed
 	private void handleUpgrade(){
-		
+		if(gm.towerAt(xPosition,zPosition) != null){
+			if(Input.GetAxis("Fire")>.5){
+				upgraded = gm.upgradeTower(xPosition,zPosition,"Fire");
+			}
+			else if(Input.GetAxis("Earth")>.5){
+				upgraded = gm.upgradeTower(xPosition,zPosition,"Earth");
+			}
+			else if(Input.GetAxis("Water")>.5){
+				upgraded = gm.upgradeTower(xPosition,zPosition,"Water");
+			}
+			else if(Input.GetAxis("Wind")>.5){
+				upgraded = gm.upgradeTower(xPosition,zPosition,"Wind");
+			}
+		}
+		else{
+			upgraded = false;	
+		}
 	}
 }

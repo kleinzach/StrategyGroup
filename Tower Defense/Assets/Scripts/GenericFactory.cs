@@ -52,7 +52,7 @@ public class GenericFactory : MonoBehaviour{
 	/// The Delay between sweeps.
 	/// </param>
 	/// 
-	/*
+
 	IEnumerator recycle(float delay){
 		while(true){
 			yield return new WaitForSeconds(delay);
@@ -63,5 +63,5 @@ public class GenericFactory : MonoBehaviour{
 				}
 			}
 		}
-	}*/
+	}
 }

@@ -29,6 +29,8 @@ public class FactoryLoader : MonoBehaviour {
 	public GameObject WindWater;
 	public GameObject WindWind;
 	
+	public GameObject FireP;
+	
 	public GameObject fireEnemy;
 	public GameObject waterEnemy;
 	public GameObject earthEnemy;
