@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\FactoryManager.cs" />
+     <Compile Include="Assets\Scripts\GUIController.cs" />
      <Compile Include="Assets\Scripts\GameMaster.cs" />
      <Compile Include="Assets\Scripts\GenericFactory.cs" />
      <Compile Include="Assets\Scripts\GridBlocker.cs" />

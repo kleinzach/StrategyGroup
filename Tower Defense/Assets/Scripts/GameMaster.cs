@@ -9,21 +9,31 @@ public class GameMaster : MonoBehaviour {
 	public int gridWidth = 20;
 	public int gridHeight = 10;
 	
+	public int startingMoney = 10;
 	public int money = 10;
 	
 	public int wallCost = 2;
 	public int towerCost = 2;
 	public int upgradeCost = 2;
 	
+	public static int startingHealth = 20;
+	public int remainingHealth = 20;
+	
 	private GameObject[,] grid;
 	
-	public GameObject enemy;
+	public int difficulty = 1;
+	public int maxDifficulty = 5;
 	
 	//Parameters controlling the enemy waves.
 	private int currentWave = 1;
 	public int stage = 1;
 	
 	public enemy[] possibleEnemies;
+	
+	//GUI Things
+	public bool onMainMenu = true;
+	public bool optionsPaneOpen = false;
+	public bool isPaused = false;
 	
 	// Use this for initialization
 	void Start () {
@@ -126,5 +136,33 @@ public class GameMaster : MonoBehaviour {
 	/// </param>
 	public bool inBounds(int x, int z){
 		return((0 <= x && x < gridWidth)&&(0 <= z && z < gridHeight));	
+	}
+	
+	public void Reset(){
+		money = startingMoney;
+		remainingHealth = startingHealth;
+		Application.LoadLevel(Application.loadedLevelName);
+	}
+	
+	public void incrementDifficulty(){
+		this.difficulty++;
+		if (difficulty >= maxDifficulty){
+			difficulty = 1;	
+		}
+	}
+	
+	public void togglePause(){
+		if(this.isPaused){
+			isPaused = false;	
+		}
+		else{
+			isPaused = true;	
+		}
+	}
+	
+	public void goToMainMenu(){
+		onMainMenu = true;
+		Reset ();
+		
 	}
 }
