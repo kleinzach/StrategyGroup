@@ -1,13 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\FactoryManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GameMaster.cs">
     <Files>
+      <File FileName="Assets\Scripts\GameMaster.cs" Line="31" Column="47" />
       <File FileName="Assets\Scripts\GenericFactory.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\FactoryManager.cs" Line="20" Column="59" />
+      <File FileName="Assets\Scripts\FactoryManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Player.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\tower_state_FIRE.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\enemy.cs" Line="1" Column="1" />
-      <File FileName="Assets\Editor\FactoryManagerEditor.cs" Line="19" Column="50" />
+      <File FileName="Assets\Editor\FactoryManagerEditor.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

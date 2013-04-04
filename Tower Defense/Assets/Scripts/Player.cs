@@ -15,6 +15,7 @@ public class Player : MonoBehaviour {
 	public GameObject ghostTower;
 	private bool towerPlaced = false;
 	private bool upgraded = true;
+	private bool towerDestroyed = false;
 	
 	// Use this for initialization
 	void Start () {
@@ -76,11 +77,20 @@ public class Player : MonoBehaviour {
 	
 	//Require a new click for each new tower.
 	private void handlePlace(){
+		//Building
 		if(!towerPlaced && Input.GetAxis("Place Tower") >= .5){
 			towerPlaced = gm.placeTower(xPosition,zPosition);
 		}
-		if(towerPlaced && Input.GetAxis("Place Tower") <= .5){
+		else if(towerPlaced && Input.GetAxis("Place Tower") <= .5){
 			towerPlaced = false;	
+		}
+		
+		//Selling
+		if(!towerDestroyed && Input.GetAxis("Sell Tower") >= .5){
+			towerDestroyed = gm.sellTower(xPosition,zPosition);
+		}
+		else if(towerDestroyed && Input.GetAxis("Sell Tower") <= .5){
+			towerDestroyed = false;	
 		}
 	}
 	

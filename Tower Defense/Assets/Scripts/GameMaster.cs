@@ -10,9 +10,10 @@ public class GameMaster : MonoBehaviour {
 	public int gridHeight = 10;
 	
 	public int money = 10;
+	
+	public int wallCost = 2;
 	public int towerCost = 2;
-	public int towerUpgrade1Cost = 5;
-	public int towerUpgrade2Cost = 10;
+	public int upgradeCost = 2;
 	
 	private GameObject[,] grid;
 	
@@ -29,6 +30,12 @@ public class GameMaster : MonoBehaviour {
 		GameObject go = new GameObject();
 		factory = go.AddComponent<FactoryManager>();
 		grid = new GameObject[gridWidth,gridHeight];
+		
+		GameObject[] blockers = (GameObject[])FindObjectsOfType(typeof(GridBlocker));
+		for(int i = 0; i < blockers.Length; i++){
+			grid[(int)blockers[i].transform.position.x,
+				(int)blockers[i].transform.position.z] = blockers[i];	
+		}
 	}
 	
 	// Update is called once per frame
@@ -39,22 +46,49 @@ public class GameMaster : MonoBehaviour {
 	//Places a Tower at the desired location.
 	public bool placeTower(int x, int z){
 		bool canPlace = true;
-		canPlace &= (money > towerCost);
-		canPlace &= (-gridWidth/2 <= x) && (x <= gridWidth/2);
-		canPlace &= (-gridHeight/2 <= z) && (z  <= gridHeight/2);
+		canPlace &= (money > wallCost);
+		canPlace &= (0 <= x) && (x < gridWidth);
+		canPlace &= (0 <= z) && (z  < gridHeight);
 		if(canPlace){
-			canPlace &= (grid[x + gridWidth/2,z + gridHeight/2] == null);
+			canPlace &= (grid[x,z] == null);
 		}
 		if(canPlace){
 			GameObject newTower = factory.create("Wall");
 			newTower.transform.position = new Vector3(x,0,z);
-			grid[x + gridWidth/2,z + gridHeight/2] = newTower;
+			grid[x,z] = newTower;
 		}
 		return canPlace;
 	}
 	
+	/// <summary>
+	/// Upgrades the tower.
+	/// </summary>
+	/// <returns>
+	/// If the tower was upgraded.
+	/// </returns>
+	/// <param name='x'>
+	/// x positoin.
+	/// </param>
+	/// <param name='z'>
+	/// z position.
+	/// </param>
+	/// <param name='element'>
+	/// The element to upgrade using.
+	/// </param>
 	public bool upgradeTower(int x, int z, string element){
 		return false;
+	}
+	
+	public bool sellTower(int x, int z){
+		GameObject towerToSell = grid[x,z];
+		try{
+			towerToSell.GetComponent<GridBlocker>();
+			return false;		
+		}
+		catch(Exception e){}
+		grid[x,z] = null;
+		//towerToSell.sell(); *********************************************************************************************
+		return true;
 	}
 	
 	/// <summary>
@@ -71,7 +105,7 @@ public class GameMaster : MonoBehaviour {
 	/// </param>
 	public GameObject towerAt(int x, int z){
 		try{
-			return grid[x + gridWidth/2,z + gridHeight/2];	
+			return grid[x,z];	
 		}
 		catch(Exception e){
 			return null;	
@@ -82,7 +116,7 @@ public class GameMaster : MonoBehaviour {
 	/// shows it the point is in bounds.
 	/// </summary>
 	/// <returns>
-	/// Whetehr it is in.
+	/// Whether it is in.
 	/// </returns>
 	/// <param name='x'>
 	/// The x coordinate.
@@ -91,8 +125,6 @@ public class GameMaster : MonoBehaviour {
 	/// The z coordinate.
 	/// </param>
 	public bool inBounds(int x, int z){
-		int realx = x + gridWidth/2;
-		int realz = z + gridHeight/2;
-		return((0 < realx && realx < gridWidth)&&(0 < realz && realz < gridHeight));	
+		return((0 <= x && x < gridWidth)&&(0 <= z && z < gridHeight));	
 	}
 }
