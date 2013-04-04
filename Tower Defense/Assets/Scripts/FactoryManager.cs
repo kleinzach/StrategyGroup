@@ -6,12 +6,19 @@ using System.Collections.Generic;
 //Manages all of the different factories i'm going to create.
 public class FactoryManager : MonoBehaviour{
 	
-	Dictionary<string,GenericFactory> factories = new Dictionary<string,GenericFactory>();
+	private Dictionary<string,GenericFactory> factories = new Dictionary<string,GenericFactory>();
+	
 	public float recycleDelay = 2f;
+	
+	public int initialSize = 1;	
+	public GameObject[] initalFactories = new GameObject[1];
 	
 	
 	// Use this for initialization
 	void Start () {
+		for(int i = 0; i < initalFactories.Length; i++){
+			newFactory(initalFactories[i].name,initalFactories[i]);	
+		}
 	}
 	
 	/// <summary>
